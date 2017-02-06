@@ -1,0 +1,36 @@
+<header>
+  <nav id="navigation" class="navbar" role="navigation">
+    <div class="navbar-inner">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="fa fa-bars fa-2x"></i>
+        </button>
+        <a id="brand" class="clearfix navbar-brand" href="/" alt="logo"><img class="nav-logo-size" src="/img/logo.png"></a>
+      </div>
+      <div id="navbar-collapse" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li ng-repeat-start="room in openRooms">
+            <a ng-href="#!/chatroom/{{room._id}}">{{room.name}}</a>
+          </li>
+          <li ng-repeat-end><button class="btn btn-xs btn-danger navbar-btn" ng-click="removeRoom(room)">X</button></li>
+          <li></li>
+          <li><a class="" ng-href="#"></a></li>
+          <li></li>
+          <li><a class="" ng-href="#!/intro">Front</a></li>
+          <li></li>
+          <li ng-if="!userLoggedIn()"><a class="" href="#!/signin">Log in</a></li>
+          <li ng-if="userLoggedIn()">
+            <img class="pull-left" height="32" width="32" ng-src="{{showImage(currentUser)}}" />
+          </li>
+          <li ng-if="userLoggedIn()">
+            <a class="" href="#!/edituser">{{currentUser.nickname}}</a>
+          </li>
+          <li></li>
+          <li ng-if="!userLoggedIn()"><a class="" href="#!/register">Sign up</a></li>
+          <li ng-if="userLoggedIn()"><a class="" href="#" ng-click="logout()">Log out</a></li>
+          </ul>
+      </div>
+    </div>
+  </nav>
+</header>

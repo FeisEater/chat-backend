@@ -1,0 +1,63 @@
+<div class="row"> 
+  <h2 ng-if="blockedUsers.length != 0">Blocked users</h2>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="user in blockedUsers">
+      <img class="pull-left" height="32" width="32" ng-src="{{showImage(user)}}" />
+      {{user.nickname}}
+      <button class="btn btn-xs btn-danger navbar-btn" ng-click="unblockUser(user)">Unblock</button>
+    </li>
+  </ul>
+</div>
+<div class="row"> 
+  <div class="col-md-12" style="margin-top: 3em;">
+    <form ng-submit="submit()">
+      <div class="form-group ">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="name" class="control-label">Nickname</label>
+          </div>
+          <div class="col-xs-6 text-right">
+          </div>
+        </div>
+        <input class="form-control" id="name" name="name" tabindex="110" type="text" value="" ng-model="user.nickname">
+      </div>
+      <div class="form-group ">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="email" class="control-label">Email</label>
+          </div>
+          <div class="col-xs-6 text-right">
+          </div>
+        </div>
+        <input class="form-control" id="email" name="email" tabindex="110" type="text" value="" ng-model="user.email">
+      </div>
+      <div class="form-group ">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="password" class="control-label">Password</label>
+          </div>
+          <input class="form-control" id="password" name="password" tabindex="110" type="password" value="" ng-model="user.password">
+        </div>
+      </div>
+      <div class="form-group ">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="password" class="control-label">Password again</label>
+          </div>
+          <input class="form-control" id="password" name="password" tabindex="110" type="password" value="" ng-model="passwordAgain">
+        </div>
+      </div>
+      <div class="form-group ">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="avatar" class="control-label">Avatar</label>
+          </div>
+          <img class="pull-left" height="128" width="128" ng-src="{{showImage(user)}}" />
+          <input class="pull-left" id="avatar" name="avatar" type="file" ng-model="avatar" accept="image/*" maxsize="5000" base-sixty-four-input do-not-parse-if-oversize>
+          <span>{{errormsg}}</span>
+        </div>
+      </div>
+      <input type="submit" class="btn btn-default btn-primary" value="Confirm" tabindex="180">
+    </form>
+  </div>
+</div>

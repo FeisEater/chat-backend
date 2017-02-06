@@ -1,0 +1,22 @@
+<div class="">
+  <h1 class="header1">Welcome! Choose a room to chat</h1>
+  <div ng-repeat="room in rooms">
+    <div ng-class="{'row': $index % 4 == 3}">
+      <div class="col-md-3" ng-class="chooseRoomColor(room, $index)"
+        ng-click="(room.passwordHash == undefined || room.passwordHash == '') && !room.forbidden && getInRoom(room)">
+        <h2>{{room.name}}</h2>
+        <p ng-if="room.messages.length != 0">Last message: {{formatDate(room.messages[room.messages.length - 1].created)}}</p>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="msg in room.messages">{{msg.content}}</li>
+        </ul>
+        <form ng-if="room.passwordHash != null && room.passwordHash != ''" ng-submit="sendPassword(room)">
+          <input id="password" name="password" type="password" value="" ng-model="room.roomPassword">
+          <input class="btn btn-default btn-primary" type="submit" value="SendPassword" tabindex="180">
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <a class="btn btn-primary btn-lg btn-block" href="#!/newroom" role="button">New room</a>
+  </div>
+</div>

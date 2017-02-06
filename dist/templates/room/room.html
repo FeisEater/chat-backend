@@ -1,0 +1,115 @@
+<div class="">
+  <section class="ui">
+    <h1 class="header1">{{room.name}}</h1>
+    <div>
+      <div class="col-md-8 chat">
+        <div class="column">
+          <table class="table">
+            <col width="20%">
+            <col width="80%">
+            <tr ng-repeat="msg in messages">
+              <td>
+                <img height="32" width="32" ng-src="{{showImage(msg.creator)}}" />
+                <button class="btn btn-xs pull-left" ng-click="blockUser(msg.creator._id)">Block</button>
+                {{msg.creator.nickname}}</br>({{formatDate(msg.created)}})
+              </td>
+              <td>{{msg.content}}</td>
+            </tr>
+          </table>
+          <div ng-if="userLoggedIn()">
+            <textarea class="form-control" rows="3" tabindex="110" value="" ng-model="newmsg.content"></textarea>
+            <img class="pull-left" height="32" width="32" ng-src="{{showImage(currentUser)}}" />
+            <button id="sendbtn" class="btn btn-default btn-primary" tabindex="180" ng-click="send()">Send</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-default btn-primary" type="button" data-toggle="collapse" data-target="#roomSettings" aria-expanded="false" aria-controls="roomSettings" ng-if="moderator" ng-click="refUsers()">
+          Edit room settings
+        </button>
+        <div class="collapse" id="roomSettings">
+          <div class="well">
+            <form class="well" ng-submit="editRoom()">
+              <div class="form-group">
+                <label for="name">Room name</label>
+                <input class="form-control" id="name" ng-model="newroom.name">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="changePassword"> Change room access password (Leave empty to not require password)
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="roomPassword">Password</label>
+                <input type="password" class="form-control" id="roomPassword" placeholder="Room Password" ng-model="newroom.password" ng-disabled="!changePassword">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="newroom.inviteonly"> Invite only
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="newroom.unlisted"> Unlisted
+                </label>
+              </div>
+              <p class="bg-success" ng-show="editSuccess">Changes have been saved</p>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <label>Search user by their name</label>
+            <input ng-model="userToFind">
+            <button class="btn btn-default" ng-click="findUserByName()">Search</button>
+            <div ng-if="foundUser._id != undefined">
+              <img class="pull-left" height="32" width="32" ng-src="{{showImage(foundUser)}}" />
+              <p>{{foundUser.nickname}}</p>
+              <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(foundUser, 'moderator')">Set moderator</button>
+              <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(foundUser, 'invited')">Invite</button>
+              <button class="btn btn-xs btn-danger pull-right" ng-click="setMemberShip(foundUser, 'banned')">Ban</button>
+              <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'visited')">Remove role</button>
+            </div>
+            <h2>Moderators</h2>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="user in members.moderators">
+                <img class="pull-left" height="32" width="32" ng-src="{{showImage(user)}}" />
+                {{user.nickname}}
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'invited')">Invite</button>
+                <button class="btn btn-xs btn-danger pull-right" ng-click="setMemberShip(user, 'banned')">Ban</button>
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'visited')">Remove role</button>
+              </li>
+            </ul>
+            <h2>Banned</h2>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="user in members.banned">
+                <img class="pull-left" height="32" width="32" ng-src="{{showImage(user)}}" />
+                {{user.nickname}}
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'moderator')">Set moderator</button>
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'invited')">Invite</button>
+                <button class="btn btn-xs btn-success pull-right" ng-click="setMemberShip(user, 'visited')">Unban</button>
+              </li>
+            </ul>
+            <h2>Invited</h2>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="user in members.invited">
+                <img class="pull-left" height="32" width="32" ng-src="{{showImage(user)}}" />
+                {{user.nickname}}
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'moderator')">Set moderator</button>
+                <button class="btn btn-xs btn-danger pull-right" ng-click="setMemberShip(user, 'banned')">Ban</button>
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'visited')">Remove role</button>
+              </li>
+            </ul>
+            <h2>Posters</h2>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="user in members.posters">
+                <img class="pull-left" height="32" width="32" ng-src="{{showImage(user)}}" />
+                {{user.nickname}}
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'moderator')">Set moderator</button>
+                <button class="btn btn-xs btn-info pull-right" ng-click="setMemberShip(user, 'invited')">Invite</button>
+                <button class="btn btn-xs btn-danger pull-right" ng-click="setMemberShip(user, 'banned')">Ban</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

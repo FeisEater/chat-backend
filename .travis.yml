@@ -1,0 +1,16 @@
+language: node_js
+script:
+- npm --silent run lint
+- npm --silent test
+- cat ./coverage/lcov.info | coveralls
+deploy:
+  provider: heroku
+  api_key:
+    secure: O8XbHmTAFJ55uxCIfCTNS4JqA/lOJqSbdlPcHQzEMQjo1LHMceYU9cmkVhGDMBv6XfeqyFTBvzFjpIZr+6zGGvIN3fsJjC/jgLu5jWhGQdlL+TDJaxI2Rv7XZGvRGYmUpFncJRhNJT3ygHM1NEKFT9OGcotc7r2YrtTAkBJ0CeIO3J21Kk555u75CJcM4SQDOQiiPlMedorq2G/mXSG4Ik19tdheaODVpXxOfiG9HBtRHHZ2UB4THKrGokfKhj8PxY5BC/xo1lrvNK71Jva/+q+PenH+5ezcsrgbojkdPpwdyih67vmj5CpjF3Ha4iXMW5vdVBX6CSSYCn49PZSFRGF25u07Sl1Tr2YwJ1NhyEaX4RxhIzkDhQTjbJ8lWZtfzbM4PcTtXDVzq/e8ObwpXTuf7N+kcL+p5hlTbgGOk6doeAdiRRk6CRkj3S+w4/REyMTSXTN2mY8aFs7zbzJGRr+uP28Y4687U5VMEN1qxklj11S82Liaz/7CA3oWmJ07NssJGEPh9hC857UCznBVfzMNIEY+EbtFRtHQrPPSGm7FuDVxNxfl9BLgL2n0/Wh1ImWYj2IijWbfUG38qz/jMpkofnahYUqEW7Pw2RsP4ZrmvFEtCg0J6lFipZqT0kXABAXvKM5G8lN2SROuOCGntW9X2jRCOvcLX4Dw2tzsoX8=
+  app: simple-node-bootstrap
+  on:
+    repo: TeemuKoivisto/simple-node-bootstrap
+notifications:
+  email:
+    on_success: never
+    on_failure: never

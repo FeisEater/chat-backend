@@ -1,0 +1,21 @@
+<form ng-submit="createRoom()">
+  <div class="form-group">
+    <label for="name">Room name</label>
+    <input class="form-control" id="name" ng-model="newroom.name">
+  </div>
+  <div class="form-group">
+    <label for="roomPassword">Room access password (Leave empty to not require password)</label>
+    <input type="password" class="form-control" id="roomPassword" ng-model="newroom.password" placeholder="Room Password">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="newroom.inviteonly"> Invite only
+    </label>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="newroom.unlisted"> Unlisted
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

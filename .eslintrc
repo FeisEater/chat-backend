@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb/base",
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "no-console": 0,
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "quotes": [2, "double", "avoid-escape"]
+  }
+}
