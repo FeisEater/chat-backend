@@ -55,12 +55,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 app.get("*", (req, res) => {
-  res.render("index", { 
-    env: {
-      NODE_ENV: process.env.NODE_ENV,
-      API_URL: process.env.API_URL,
-    } 
-  });
+  res.sendFile(__dirname + "/index.html");
 });
 
 /**
